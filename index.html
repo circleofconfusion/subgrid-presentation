@@ -99,12 +99,12 @@
         <div class="columns two">
             <div id="ex-grid-2">
                 <div class="item-wrapper">
-                    <div class="item">One</div>
-                    <div class="item">Two</div>
-                    <div class="item">Three</div>
-                    <div class="item">Four</div>
-                    <div class="item">Five</div>
-                    <div class="item">Six</div>
+                    <div class="item-2">One</div>
+                    <div class="item-2">Two</div>
+                    <div class="item-2">Three</div>
+                    <div class="item-2">Four</div>
+                    <div class="item-2">Five</div>
+                    <div class="item-2">Six</div>
                 </div>
             </div>
             <pre class="code-small">
@@ -122,6 +122,7 @@
                 <code>&nbsp;&nbsp;...</code>
                 <code><mark>&nbsp;&nbsp;.item-wrapper {</mark></code>
                 <code><mark>&nbsp;&nbsp;&nbsp;&nbsp;display: contents;</mark></code>
+                <code><mark>&nbsp;&nbsp;&nbsp;&nbsp;color: red;</mark></code>
                 <code><mark>&nbsp;&nbsp;}</mark></code>
                 <code>&nbsp;&nbsp;...</code>
                 <code>&lt;/style&gt;</code>
@@ -137,12 +138,12 @@
 
             .item-wrapper {
                 display: contents;
+                color: red;
             }
 
-            .item {
+            .item-2 {
                 border: 1px solid gray;
                 border-radius: 10px;
-                color: gray;
                 text-align: center;
                 font-size: 2em;
             }
@@ -152,7 +153,8 @@
     <section class="slide">
         <h2 id="heading"><code>display: contents</code> vs. <code>subgrid</code></h2>
         <ul>
-            <li><code>display: contents</code> removes element from DOM</li>
+            <li><code>display: contents</code> removes element's box from the layout</li>
+            <li>element with <code>display: contents</code> can still pass on inheritable rules like <code>color</code></li>
             <li><code>subgrid</code> keeps semantic role of element</li>
             <li>allows element's children to become grid items</li>
         </ul>
@@ -170,6 +172,89 @@
             <p>Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia.</p>
         </div>
     </section> -->
+
+    <section class="slide">
+        <h2 style="font-size: 1.5em; margin: 0 0 0.2em;">Basic subgrid</h2>
+        <div class="columns two">
+            <div>
+                <div id="subgrid-ex-1">
+                    <div class="item-group-ex-1">
+                        <div class="subgrid-item-ex-1">One</div>
+                        <div class="subgrid-item-ex-1">Two</div>
+                        <div class="subgrid-item-ex-1">Three</div>
+                    </div>
+                    <div class="item-group-ex-1">
+                        <div class="subgrid-item-ex-1">Four</div>
+                        <div class="subgrid-item-ex-1">Five</div>
+                        <div class="subgrid-item-ex-1">Six</div>
+                    </div>
+                </div>
+                <pre class="code-small">
+                    <code>&lt;div id="subgrid-ex-1"&gt;</code>
+                    <code>&nbsp;&nbsp;&lt;div class="item-group-ex-1"&gt;</code>
+                    <code>&nbsp;&nbsp;&nbsp;&nbsp;&lt;div class="subgrid-item-ex-1"&gt;One&lt;/div&gt;</code>
+                    <code>&nbsp;&nbsp;&nbsp;&nbsp;&lt;div class="subgrid-item-ex-1"&gt;Two&lt;/div&gt;</code>
+                    <code>&nbsp;&nbsp;&nbsp;&nbsp;&lt;div class="subgrid-item-ex-1"&gt;Three&lt;/div&gt;</code>
+                    <code>&nbsp;&nbsp;&lt;/div&gt;</code>
+                    <code>&nbsp;&nbsp;&lt;div class="item-group-ex-1"&gt;</code>
+                    <code>&nbsp;&nbsp;&nbsp;&nbsp;&lt;div class="subgrid-item-ex-1"&gt;Four&lt;/div&gt;</code>
+                    <code>&nbsp;&nbsp;&nbsp;&nbsp;&lt;div class="subgrid-item-ex-1"&gt;Five&lt;/div&gt;</code>
+                    <code>&nbsp;&nbsp;&nbsp;&nbsp;&lt;div class="subgrid-item-ex-1"&gt;Six&lt;/div&gt;</code>
+                    <code>&nbsp;&nbsp;&lt;/div&gt;</code>
+                    <code>&lt;/div&gt;</code>
+                </pre>
+            </div>
+            <pre class="code-small">
+                <code>&lt;style&gt;</code>
+                <code>&nbsp;&nbsp;#subgrid-ex-1 {</code>
+                <code>&nbsp;&nbsp;&nbsp;&nbsp;display: grid;</code>
+                <code>&nbsp;&nbsp;&nbsp;&nbsp;grid-template-columns: repeat(3, 10ch);</code>
+                <code>&nbsp;&nbsp;&nbsp;&nbsp;grid-template-rows: repeat(2, 4em);</code>
+                <code>&nbsp;&nbsp;&nbsp;&nbsp;grid-gap: 10px;</code>
+                <code>&nbsp;&nbsp;}</code>
+        
+                <code>&nbsp;&nbsp;.item-group-ex-1 {</code>
+                <code>&nbsp;&nbsp;&nbsp;&nbsp;display: grid;</code>
+                <code>&nbsp;&nbsp;&nbsp;&nbsp;grid-column: 1/-1;</code>
+                <code>&nbsp;&nbsp;&nbsp;&nbsp;grid-template-columns: subgrid;</code>
+                <code>&nbsp;&nbsp;&nbsp;&nbsp;border: 1px blue solid;</code>
+                <code>&nbsp;&nbsp;&nbsp;&nbsp;border-radius: 10px;</code>
+                <code>&nbsp;&nbsp;&nbsp;&nbsp;padding: 5px;</code>
+                <code>&nbsp;&nbsp;}</code>
+        
+                <code>&nbsp;&nbsp;.subgrid-item-ex-1 {</code>
+                <code>&nbsp;&nbsp;&nbsp;&nbsp;text-align: center;</code>
+                <code>&nbsp;&nbsp;&nbsp;&nbsp;border: 1px solid gray;</code>
+                <code>&nbsp;&nbsp;&nbsp;&nbsp;border-radius: 10px;</code>
+                <code>&nbsp;&nbsp;}</code>
+                <code>&lt;/style&gt;</code>
+            </pre>
+        </div>
+        <style>
+            #subgrid-ex-1 {
+                display: grid;
+                grid-template-columns: repeat(3, 10ch);
+                grid-template-rows: repeat(2, 4em);
+                grid-gap: 10px;
+            }
+
+            .item-group-ex-1 {
+                display: grid;
+                grid-column: 1/-1;
+                grid-template-columns: subgrid;
+                border: 1px blue solid;
+                border-radius: 10px;
+                padding: 5px;
+            }
+
+            .subgrid-item-ex-1 {
+                text-align: center;
+                border: 1px solid gray;
+                border-radius: 10px;
+                font-size: 1.5em;
+            }
+        </style>
+    </section>
 
     <section class="slide">
         <h2></h2>
