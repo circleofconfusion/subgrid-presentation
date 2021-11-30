@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <title>Shower Presentation Engine</title>
+    <title>CSS Subgrid</title>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
     <link rel="stylesheet" href="node_modules/@shower/ribbon/styles/styles.css">
@@ -9,85 +9,170 @@
         .shower {
             --slide-ratio: calc(16 / 9);
         }
+
+        .code-small {
+            font-size: .4em;
+        }
+
+        h2 > code {
+            font-size: .8em;
+        }
     </style>
 </head>
 <body class="shower list">
 
     <header class="caption">
-        <h1>Shower Presentation Engine</h1>
-        <p>Yours Truly, Famous Inc.</p>
+        <h1>CSS Subgrid</h1>
+        <p>What is it, and why do we need it?</p>
     </header>
 
-    <section class="slide" id="cover">
-        <h2>Shower Presentation Engine</h2>
-        <p>Brought to you by <a href="https://pepelsbey.net">Vadim Makeev</a></p>
-        <figure>
-            <img class="cover" src="pictures/cover.jpg" alt="Hands on the orange typewriter in a park">
-            <figcaption class="copyright right white">
-                <a href="https://fiftyfootshadows.net">© John Carey</a>
-            </figcaption>
-        </figure>
+    <section class="slide">
+        <div class="cover">
+            <h2>CSS Subgrid</h2>
+            <p>What is it, and why do we need it?</p>
+        </div>
+    </section>
+    
+    <section class="slide">
+        <h2>CSS Grid Level 2 aka subgrid</h2>
+        <ul>
+            <li>Dropped from initial grid W3C recommendation</li>
+            <li>Allows <em>grandchildren</em> of grid to be grid items</li>
+        </ul>
+    </section>
+
+    <section class="slide">
+        <h2>Grid Level 1 review</h2>
+        <div class="columns two">
+            <div id="ex-grid-1">
+                <div class="item">One</div>
+                <div class="item">Two</div>
+                <div class="item">Three</div>
+                <div class="item">Four</div>
+                <div class="item">Five</div>
+                <div class="item">Six</div>
+            </div>
+            <pre class="code-small">
+                <code>&lt;div id="ex-grid-1"&gt;</code>
+                <code>&nbsp;&nbsp;&lt;div class="item"&gt;One&lt;/div&gt;</code>
+                <code>&nbsp;&nbsp;&lt;div class="item"&gt;Two&lt;/div&gt;</code>
+                <code>&nbsp;&nbsp;&lt;div class="item"&gt;Three&lt;/div&gt;</code>
+                <code>&nbsp;&nbsp;&lt;div class="item"&gt;Four&lt;/div&gt;</code>
+                <code>&nbsp;&nbsp;&lt;div class="item"&gt;Five&lt;/div&gt;</code>
+                <code>&nbsp;&nbsp;&lt;div class="item"&gt;Six&lt;/div&gt;</code>
+                <code>&lt;/div&gt;</code>
+                <code>&lt;style&gt;</code>
+                <code>&nbsp;&nbsp;#ex-grid-1 {</code>
+                <code>&nbsp;&nbsp;&nbsp;&nbsp;display: grid;</code>
+                <code>&nbsp;&nbsp;&nbsp;&nbsp;grid-template-columns: 10ch 10ch 10ch;</code>
+                <code>&nbsp;&nbsp;&nbsp;&nbsp;grid-template-rows: 4em 4em;</code>
+                <code>&nbsp;&nbsp;&nbsp;&nbsp;gap: 5px;</code>
+                <code>&nbsp;&nbsp;}</code>
+                <code>&nbsp;&nbsp;...</code>
+                <code>&lt;/style&gt;</code>
+            </pre>
+        </div>
         <style>
-            #cover h2 {
-                margin: 30px 0 0;
-                color: white;
-                text-align: center;
-                font-size: 70px;
+            #ex-grid-1 {
+                display: grid;
+                grid-template-columns: 10ch 10ch 10ch;
+                grid-template-rows: 4em 4em;
+                gap: 5px;
             }
 
-            #cover p {
-                margin: 10px 0 0;
+            .item {
+                border: 1px solid gray;
+                border-radius: 10px;
+                color: gray;
                 text-align: center;
-                color: white;
-                font-style: italic;
-                font-size: 20px;
+                font-size: 2em;
             }
 
-            #cover p a {
-                color: white;
+            #code-1 {
+                font-size: .4em;
             }
         </style>
     </section>
 
     <section class="slide">
-        <h2>Shower key features</h2>
-        <ol>
-            <li>Built on HTML, CSS and JavaScript</li>
-            <li>Works in all modern browsers</li>
-            <li>Themes are separated from engine</li>
-            <li>Fully keyboard accessible</li>
-            <li>Printable to PDF</li>
-        </ol>
-        <p class="note">Shower ['ʃəuə] noun. A person or thing that shows.</p>
+        <h2>Grid Level 1 review - <code>display: contents</code></h2>
+        <div class="columns two">
+            <div id="ex-grid-2">
+                <div class="item-wrapper">
+                    <div class="item">One</div>
+                    <div class="item">Two</div>
+                    <div class="item">Three</div>
+                    <div class="item">Four</div>
+                    <div class="item">Five</div>
+                    <div class="item">Six</div>
+                </div>
+            </div>
+            <pre class="code-small">
+                <code>&lt;div id="ex-grid-1"&gt;</code>
+                <code><mark>&nbsp;&nbsp;&lt;div class="item-wrapper"&gt;</mark></code>
+                <code>&nbsp;&nbsp;&nbsp;&nbsp;&lt;div class="item"&gt;One&lt;/div&gt;</code>
+                <code>&nbsp;&nbsp;&nbsp;&nbsp;&lt;div class="item"&gt;Two&lt;/div&gt;</code>
+                <code>&nbsp;&nbsp;&nbsp;&nbsp;&lt;div class="item"&gt;Three&lt;/div&gt;</code>
+                <code>&nbsp;&nbsp;&nbsp;&nbsp;&lt;div class="item"&gt;Four&lt;/div&gt;</code>
+                <code>&nbsp;&nbsp;&nbsp;&nbsp;&lt;div class="item"&gt;Five&lt;/div&gt;</code>
+                <code>&nbsp;&nbsp;&nbsp;&nbsp;&lt;div class="item"&gt;Six&lt;/div&gt;</code>
+                <code><mark>&nbsp;&nbsp;&lt;/div&gt;</mark></code>
+                <code>&lt;/div&gt;</code>
+                <code>&lt;style&gt;</code>
+                <code>&nbsp;&nbsp;...</code>
+                <code><mark>&nbsp;&nbsp;.item-wrapper {</mark></code>
+                <code><mark>&nbsp;&nbsp;&nbsp;&nbsp;display: contents;</mark></code>
+                <code><mark>&nbsp;&nbsp;}</mark></code>
+                <code>&nbsp;&nbsp;...</code>
+                <code>&lt;/style&gt;</code>
+            </pre>
+        </div>
+        <style>
+            #ex-grid-2 {
+                display: grid;
+                grid-template-columns: 10ch 10ch 10ch;
+                grid-template-rows: 4em 4em;
+                gap: 5px;
+            }
+
+            .item-wrapper {
+                display: contents;
+            }
+
+            .item {
+                border: 1px solid gray;
+                border-radius: 10px;
+                color: gray;
+                text-align: center;
+                font-size: 2em;
+            }
+        </style>
     </section>
 
     <section class="slide">
-        <h2>Plain text on your slides</h2>
-        <p>Lorem ipsum dolor sit amet, consectetur <a href="#4">adipisicing</a> elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, <em>quis nostrud</em> exercitation ullamco laboris <strong>nisi ut aliquip</strong> ex ea commodo consequat. Duis aute irure <i>dolor</i> in reprehenderit in voluptate velit esse cillum <b>dolore</b> eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in <code>&lt;culpa&gt;</code> qui officia deserunt mollit anim id est laborum.</p>
+        <h2 id="heading"><code>display: contents</code> vs. <code>subgrid</code></h2>
+        <ul>
+            <li><code>display: contents</code> removes element from DOM</li>
+            <li><code>subgrid</code> keeps semantic role of element</li>
+            <li>allows element's children to become grid items</li>
+        </ul>
+        <style>
+            #heading {
+                font-size: 1.6em;
+            }
+        </style>
     </section>
 
-    <section class="slide">
+    <!-- <section class="slide">
         <h2>Two columns if you like</h2>
         <div class="columns two">
             <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation.</p>
             <p>Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia.</p>
         </div>
-    </section>
+    </section> -->
 
     <section class="slide">
-        <h2>All kind of lists</h2>
-        <ol>
-            <li>Simple lists are marked with bullets</li>
-            <li>Ordered lists begin with a number</li>
-            <li>You can even nest lists one inside another
-                <ul>
-                    <li>Or mix their types</li>
-                    <li>But do not go too far</li>
-                    <li>Otherwise audience will be bored</li>
-                </ul>
-            </li>
-            <li>Look, seven rows exactly!</li>
-        </ol>
+        <h2></h2>
     </section>
 
     <section class="slide">
