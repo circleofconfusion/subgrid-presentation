@@ -70,8 +70,8 @@
                 <code>&lt;style&gt;</code>
                 <code>&nbsp;&nbsp;#ex-grid-1 {</code>
                 <code>&nbsp;&nbsp;&nbsp;&nbsp;display: grid;</code>
-                <code>&nbsp;&nbsp;&nbsp;&nbsp;grid-template-columns: 10ch 10ch 10ch;</code>
-                <code>&nbsp;&nbsp;&nbsp;&nbsp;grid-template-rows: 4em 4em;</code>
+                <code>&nbsp;&nbsp;&nbsp;&nbsp;grid-template-columns: repeat(3, 10ch);</code>
+                <code>&nbsp;&nbsp;&nbsp;&nbsp;grid-template-rows: repeat(2, min-content);</code>
                 <code>&nbsp;&nbsp;&nbsp;&nbsp;gap: 5px;</code>
                 <code>&nbsp;&nbsp;}</code>
                 <code>&nbsp;&nbsp;...</code>
@@ -81,8 +81,8 @@
         <style>
             #ex-grid-1 {
                 display: grid;
-                grid-template-columns: 10ch 10ch 10ch;
-                grid-template-rows: 4em 4em;
+                grid-template-columns: repeat(3, 10ch);
+                grid-template-rows: repeat(2, min-content);
                 gap: 5px;
             }
 
@@ -92,6 +92,7 @@
                 color: gray;
                 text-align: center;
                 font-size: 2em;
+                padding: 5px;
             }
 
             #code-1 {
@@ -137,8 +138,8 @@
         <style>
             #ex-grid-2 {
                 display: grid;
-                grid-template-columns: 10ch 10ch 10ch;
-                grid-template-rows: 4em 4em;
+                grid-template-columns: repeat(3, 10ch);
+                grid-template-rows: repeat(2, min-content);
                 gap: 5px;
             }
 
@@ -152,6 +153,7 @@
                 border-radius: 10px;
                 text-align: center;
                 font-size: 2em;
+                padding: 5px;
             }
         </style>
     </section>
@@ -161,8 +163,10 @@
         <ul>
             <li><code>display: contents</code> removes element's box from the layout</li>
             <li>element with <code>display: contents</code> can still pass on inheritable rules like <code>color</code></li>
+            <li><em>Cannot</em> pass on rules like <code>background-color</code></li>
             <li><code>subgrid</code> keeps semantic role of element</li>
-            <li>allows element's children to become grid items</li>
+            <li>allows element's children to become grid items of parent grid</li>
+            <li>Retains box and box styling in layout</li>
         </ul>
         <style>
             #heading {
@@ -255,7 +259,304 @@
     </section>
 
     <section class="slide">
-        <h2></h2>
+        <h2 id="birds-1-heading">Is your state bird a stupid state bird?</h2>
+        <h3 id="birds-1-subheading">What it should be instead.</h3>
+        <div id="birds-1-wrapper">
+            <div id="birds-1-grid">
+                <div class="bird-1-card">
+                    <div class="state">Arkansas</div>
+                    <div class="official">Northern Mockingbird</div>
+                    <div class="rant">
+                        Christ. What makes this even less funny is that there are like eight other states
+                        with mockingbird as their official bird. I’m convinced that the guy whose job it
+                        was to report to the state’s legislature on what the official bird should be forgot
+                        until the day it was due and he was in line for a breakfast sandwich at Burger King.
+                        In a panic he walked outside and selected the first bird he could find, a dirty
+                        mockingbird singing its stupid head off on top of a dumpster.
+                    </div>
+                    <div class="image">
+                        <img src="pictures/painted-bunting.jpg" />
+                    </div>
+                    <div class="should-be">Painted Bunting</div>
+                </div>
+                <div class="bird-1-card">
+                    <div class="state">California</div>
+                    <div class="official">California Quail</div>
+                    <div class="rant">... Or perhaps the largest, most radical bird on the continent?</div>
+                    <div class="image">
+                        <img src="pictures/california-condor.jpg" />
+                    </div>
+                    <div class="should-be">California Condor</div>
+                </div>
+                <div class="bird-1-card">
+                    <div class="state">Delaware</div>
+                    <div class="official">Blue Hen</div>
+                    <div class="rant">
+                        You know what? I’m not so mad about this. Whatever, it seems to have some connection to you,
+                        even though "blue chicken" plugged into a thesaurus means "sad wuss."
+                    </div>
+                    <div class="image">
+                        <img src="pictures/red-knot.jpg" />
+                    </div>
+                    <div class="should-be">Red Knot</div>
+                </div>
+                <div class="bird-1-card">
+                    <div class="state">Florida</div>
+                    <div class="official">Northern Mockingbird</div>
+                    <div class="rant">
+                        I am finishing this post the next day because I had to go buy a new computer after
+                        I threw my last one out the window when I read that Florida’s state bird was the
+                        northern mockingbird. I cannot think of a more pathetic choice for one of the most
+                        bird-rich states in the nation. What’s their state beverage, a half-glass of warm tap water?
+                    </div>
+                    <div class="image">
+                        <img src="pictures/american-flamingo.jpg" />
+                    </div>
+                    <div class="should-be">American Flamingo</div>
+                </div>
+                <div class="bird-1-card">
+                    <div class="state">Maryland</div>
+                    <div class="official">Baltimore Oriole</div>
+                    <div class="rant">YOU WIN.</div>
+                    <div class="image">
+                        <img src="pictures/baltimore-oriole.jpg" />
+                    </div>
+                    <div class="should-be">Baltimore Oriole</div>
+                </div>
+                <div class="bird-1-card">
+                    <div class="state">Utah</div>
+                    <div class="official">California Gull</div>
+                    <div class="rant">
+                        At first I was mad: "You named your official state bird after a bird named for a different state?"
+                        But then I learned that California gulls ate a bunch of locusts back in the early Mormon days and
+                        saved a bunch of lives, so I’m OK with this. State birds with stories are good state birds.
+                    </div>
+                    <div class="image">
+                        <img src="pictures/california-gull.jpg" />
+                    </div>
+                    <div class="should-be">California Gull</div>
+                </div>
+            </div>
+        </div>
+        <style>
+            #birds-1-heading {
+                font-size: 18pt;
+                margin: 0;
+            }
+
+            #birds-1-subheading {
+                font-size: 12pt;
+                margin: 0 0 5px;
+                font-style: italic;
+            }
+
+            #birds-1-wrapper {
+                overflow: auto;
+                height: 45vh;
+                border: 1px solid gray;
+                border-radius: 5px;
+            }
+
+            #birds-1-grid {
+                display: grid;
+                grid-template-columns: repeat(3, 1fr);
+                grid-template-rows: repeat(2, min-content);
+                grid-gap: 5px;
+                margin: 5px;
+            }
+
+            .bird-1-card {
+                font-size: 8pt;
+                border: 1px solid gray;
+                border-radius: 5px;
+                line-height: 10pt;
+                overflow: hidden;
+                padding: 0;
+            }
+
+            .bird-1-card > div {
+                padding: 5px;
+                margin: 0;
+                position:relative;
+            }
+
+            .bird-1-card > .state {
+                background-color: maroon;
+                color: white;
+                font-weight: bold;
+            }
+
+            .bird-1-card > .official,
+            .bird-1-card > .should-be {
+                font-weight: bold;
+            }
+
+            .bird-1-card > .image {
+                padding: 0;
+                margin: 0;
+                position: relative;
+            }
+
+            .bird-1-card > .image > img {
+                object-fit: cover;
+                width: 100%;
+                height: 100%;
+            }
+        </style>
+    </section>
+
+    <section class="slide">
+        <h2 id="birds-2-heading">Is your state bird a stupid state bird?</h2>
+        <h3 id="birds-2-subheading">What it should be instead.</h3>
+        <div id="birds-2-wrapper">
+            <div id="birds-2-grid">
+                <div class="bird-2-card">
+                    <div class="state">Arkansas</div>
+                    <div class="official">Northern Mockingbird</div>
+                    <div class="rant">
+                        Christ. What makes this even less funny is that there are like eight other states
+                        with mockingbird as their official bird. I’m convinced that the guy whose job it
+                        was to report to the state’s legislature on what the official bird should be forgot
+                        until the day it was due and he was in line for a breakfast sandwich at Burger King.
+                        In a panic he walked outside and selected the first bird he could find, a dirty
+                        mockingbird singing its stupid head off on top of a dumpster.
+                    </div>
+                    <div class="image">
+                        <img src="pictures/painted-bunting.jpg" />
+                    </div>
+                    <div class="should-be">Painted Bunting</div>
+                </div>
+                <div class="bird-2-card">
+                    <div class="state">California</div>
+                    <div class="official">California Quail</div>
+                    <div class="rant">... Or perhaps the largest, most radical bird on the continent?</div>
+                    <div class="image">
+                        <img src="pictures/california-condor.jpg" />
+                    </div>
+                    <div class="should-be">California Condor</div>
+                </div>
+                <div class="bird-2-card">
+                    <div class="state">Delaware</div>
+                    <div class="official">Blue Hen</div>
+                    <div class="rant">
+                        You know what? I’m not so mad about this. Whatever, it seems to have some connection to you,
+                        even though "blue chicken" plugged into a thesaurus means "sad wuss."
+                    </div>
+                    <div class="image">
+                        <img src="pictures/red-knot.jpg" />
+                    </div>
+                    <div class="should-be">Red Knot</div>
+                </div>
+                <div class="bird-2-card">
+                    <div class="state">Florida</div>
+                    <div class="official">Northern Mockingbird</div>
+                    <div class="rant">
+                        I am finishing this post the next day because I had to go buy a new computer after
+                        I threw my last one out the window when I read that Florida’s state bird was the
+                        northern mockingbird. I cannot think of a more pathetic choice for one of the most
+                        bird-rich states in the nation. What’s their state beverage, a half-glass of warm tap water?
+                    </div>
+                    <div class="image">
+                        <img src="pictures/american-flamingo.jpg" />
+                    </div>
+                    <div class="should-be">American Flamingo</div>
+                </div>
+                <div class="bird-2-card">
+                    <div class="state">Maryland</div>
+                    <div class="official">Baltimore Oriole</div>
+                    <div class="rant">YOU WIN.</div>
+                    <div class="image">
+                        <img src="pictures/baltimore-oriole.jpg" />
+                    </div>
+                    <div class="should-be">Baltimore Oriole</div>
+                </div>
+                <div class="bird-2-card">
+                    <div class="state">Utah</div>
+                    <div class="official">California Gull</div>
+                    <div class="rant">
+                        At first I was mad: "You named your official state bird after a bird named for a different state?"
+                        But then I learned that California gulls ate a bunch of locusts back in the early Mormon days and
+                        saved a bunch of lives, so I’m OK with this. State birds with stories are good state birds.
+                    </div>
+                    <div class="image">
+                        <img src="pictures/california-gull.jpg" />
+                    </div>
+                    <div class="should-be">California Gull</div>
+                </div>
+            </div>
+        </div>
+        <style>
+            #birds-2-heading {
+                font-size: 18pt;
+                margin: 0;
+            }
+
+            #birds-2-subheading {
+                font-size: 12pt;
+                margin: 0 0 5px;
+                font-style: italic;
+            }
+
+            #birds-2-wrapper {
+                overflow: auto;
+                height: 45vh;
+                border: 1px solid gray;
+                border-radius: 5px;
+            }
+
+            #birds-2-grid {
+                display: grid;
+                grid-template-columns: repeat(3, 1fr);
+                grid-template-rows: repeat(10, min-content);
+                grid-gap: 0 5px;
+                margin: 5px;
+            }
+
+            .bird-2-card {
+                font-size: 8pt;
+                border: 1px solid gray;
+                border-radius: 5px;
+                line-height: 10pt;
+                overflow: hidden;
+                padding: 0;
+                display: grid;
+                grid-row: 1/6;
+                grid-template-rows: subgrid;
+            }
+            
+            .bird-2-card:nth-child(n+4) {
+                grid-row: 6/-1;
+            }
+            
+            .bird-2-card > div {
+                padding: 5px;
+                margin: 0;
+                position:relative;
+            }
+            
+            .bird-2-card > .state {
+                background-color: maroon;
+                color: white;
+                font-weight: bold;
+            }
+            
+            .bird-2-card > .official,
+            .bird-2-card > .should-be {
+                font-weight: bold;
+            }
+            
+            .bird-2-card > .image {
+                padding: 0;
+                margin: 0;
+                align-self: end;
+            }
+            
+            .bird-2-card > .image > img {
+                object-fit: contain;
+                width: 100%;
+                height: 100%;
+            }
+            </style>
     </section>
 
 
@@ -292,7 +593,6 @@
     <div class="progress"></div>
 
     <script src="node_modules/@shower/core/dist/shower.js"></script>
-    <!-- Copyright © 3000 Yours Truly, Famous Inc. -->
 
 </body>
 </html>
