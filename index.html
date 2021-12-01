@@ -36,20 +36,6 @@
             <p>What is it, and why do we need it?</p>
         </div>
     </section>
-    
-    <section class="slide">
-        <h2>CSS Grid Level 2 aka subgrid</h2>
-        <ul>
-            <li>Dropped from initial grid W3C recommendation</li>
-            <li>Allows <em>grandchildren</em> of grid to be grid items</li>
-        </ul>
-        <h2>Current support</h2>
-        <ul>
-            <li>Firefox: 100% 🎉</li>
-            <li>Chrome: "working on it" 🏗️</li>
-            <li>Safari: ¯\_(ツ)_/¯</li>
-        </ul>
-    </section>
 
     <section class="slide">
         <h2>Grid Level 1 review</h2>
@@ -106,6 +92,41 @@
     </section>
 
     <section class="slide">
+        <h2 id="heading">CSS Grid Level 2</h2>
+        <ul>
+            <li><code>subgrid</code> keeps semantic role of element</li>
+            <li>allows grid child element's children to become grid items of parent grid</li>
+            <li>Retains box and box styling in layout</li>
+        </ul>
+        <h3 id="support-heading">Current support</h3>
+        <ul>
+            <li>Firefox: 100% 🎉</li>
+            <li>Chromium: "working on it" 🏗️</li>
+            <li>Safari: ¯\_(ツ)_/¯</li>
+        </ul>
+        <style>
+            #heading {
+                font-size: 1.6em;
+            }
+
+            #support-heading {
+                margin: 5px 0;
+            }
+        </style>
+    </section>
+
+    <section class="slide">
+        <h2>What if you want grandchildren in the grid?</h2>
+        <h3><code>display: contents</code></h3>
+        <ul>
+            <li>Removes grid child element box from the layout</li>
+            <li>Lets grid grandchild elements act as grid items</li>
+            <li>Inheritable rules in grid child can be inherited in grandchildren</li>
+            <li>Any box-related rules like <code>background-color</code> are lost</li>
+        </ul>
+    </section>
+
+    <section class="slide">
         <h2>Grid Level 1 review - <code>display: contents</code></h2>
         <div class="columns two">
             <div id="ex-grid-2">
@@ -113,6 +134,8 @@
                     <div class="item-2">One</div>
                     <div class="item-2">Two</div>
                     <div class="item-2">Three</div>
+                </div>
+                <div class="item-wrapper">
                     <div class="item-2">Four</div>
                     <div class="item-2">Five</div>
                     <div class="item-2">Six</div>
@@ -124,6 +147,8 @@
                 <code>&nbsp;&nbsp;&nbsp;&nbsp;&lt;div class="item"&gt;One&lt;/div&gt;</code>
                 <code>&nbsp;&nbsp;&nbsp;&nbsp;&lt;div class="item"&gt;Two&lt;/div&gt;</code>
                 <code>&nbsp;&nbsp;&nbsp;&nbsp;&lt;div class="item"&gt;Three&lt;/div&gt;</code>
+                <code><mark>&nbsp;&nbsp;&lt;/div&gt;</mark></code>
+                <code><mark>&nbsp;&nbsp;&lt;div class="item-wrapper"&gt;</mark></code>
                 <code>&nbsp;&nbsp;&nbsp;&nbsp;&lt;div class="item"&gt;Four&lt;/div&gt;</code>
                 <code>&nbsp;&nbsp;&nbsp;&nbsp;&lt;div class="item"&gt;Five&lt;/div&gt;</code>
                 <code>&nbsp;&nbsp;&nbsp;&nbsp;&lt;div class="item"&gt;Six&lt;/div&gt;</code>
@@ -158,23 +183,6 @@
                 text-align: center;
                 font-size: 2em;
                 padding: 5px;
-            }
-        </style>
-    </section>
-
-    <section class="slide">
-        <h2 id="heading"><code>display: contents</code> vs. <code>subgrid</code></h2>
-        <ul>
-            <li><code>display: contents</code> removes element's box from the layout</li>
-            <li>element with <code>display: contents</code> can still pass on inheritable rules like <code>color</code></li>
-            <li><em>Cannot</em> pass on rules like <code>background-color</code></li>
-            <li><code>subgrid</code> keeps semantic role of element</li>
-            <li>allows element's children to become grid items of parent grid</li>
-            <li>Retains box and box styling in layout</li>
-        </ul>
-        <style>
-            #heading {
-                font-size: 1.6em;
             }
         </style>
     </section>
@@ -260,6 +268,257 @@
                 font-size: 1.5em;
             }
         </style>
+    </section>
+
+    <section class="slide">
+        <h2>What if you want grandchildren in the grid?</h2>
+        <h3>Nested <code>grid</code></h3>
+        <ul>
+            <li><code>grid</code> items can also themselves be grids</li>
+            <li>Grandchildren don't really participate in grandparent grid</li>
+            <li>Need to set each nested grid's <code>template</code> rules explicitly to achieve alignment</li>
+        </ul>
+    </section>
+
+    <section class="slide">
+        <h2>Grid Level 1 review - nested <code>grid</code></h2>
+        <div>
+            <div id="nested-grid-ex-1" role="table">
+                <div role="rowgroup">
+                    <div role="row">
+                        <div role="columnheader">class</div>
+                        <div role="columnheader">sepal length</div>
+                        <div role="columnheader">sepal width</div>
+                        <div role="columnheader">petal length</div>
+                        <div role="columnheader">petal width</div>
+                    </div>
+                </div>
+                    
+                <div role="rowgroup">
+                    <div role="row">
+                        <div role="rowheader">Iris-setosa</div>
+                        <div role="cell">longwordwithnospaces</div>
+                        <div role="cell">3.7</div>
+                        <div role="cell">1.5</div>
+                        <div role="cell">0.2</div>
+                    </div>
+                    <div role="row">
+                        <div role="rowheader">Iris-setosa</div>
+                        <div role="cell">5.0</div>
+                        <div role="cell">3.3</div>
+                        <div role="cell">1.4</div>
+                        <div role="cell">0.2</div>
+                    </div>
+                    <div role="row">
+                        <div role="rowheader">Iris-versicolor</div>
+                        <div role="cell">7.0</div>
+                        <div role="cell">3.2</div>
+                        <div role="cell">4.7</div>
+                        <div role="cell">1.4</div>
+                    </div>
+                    <div role="row">
+                        <div role="rowheader">Iris-versicolor</div>
+                        <div role="cell">6.4</div>
+                        <div role="cell">3.2</div>
+                        <div role="cell">4.5</div>
+                        <div role="cell">1.5</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <style>
+            #nested-grid-ex-1 {
+                width: 450px;
+                display: grid;
+                grid-template-columns: 1fr;
+                grid-gap: 5px;
+                font-size: 10pt;
+                line-height: 13pt;
+            }
+
+            #nested-grid-ex-1 div[role="row"] {
+                display: grid;
+                grid-template-columns: repeat(5, 1fr);
+                grid-gap: 5px;
+            }
+
+            #nested-grid-ex-1 div[role="row"]:nth-child(even) {
+                background-color: #eee;
+            }
+
+            #nested-grid-ex-1 div[role="row"] div[role="cell"]:nth-child(n+2) {
+                text-align: right;
+            }
+
+            #nested-grid-ex-1 div[role="row"] div[role="columnheader"]:nth-child(n+2){
+                text-align: center;
+            }
+        </style>
+    </section>
+
+    <section class="slide">
+        <div class="columns two">
+            <pre class="code-small">
+                <code>&lt;div id="nested-grid-ex-1" role="table"&gt;</code>
+                <code>&nbsp;&nbsp;&lt;div role="rowgroup"&gt;</code>
+                <code>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;div role="row"&gt;</code>
+                <code>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;div role="columnheader"&gt;class&lt;/div&gt;</code>
+                <code>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;div role="columnheader"&gt;sepal length&lt;/div&gt;</code>
+                <code>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;div role="columnheader"&gt;sepal width&lt;/div&gt;</code>
+                <code>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;div role="columnheader"&gt;petal length&lt;/div&gt;</code>
+                <code>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;div role="columnheader"&gt;petal width&lt;/div&gt;</code>
+                <code>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;/div&gt;</code>
+                <code>&nbsp;&nbsp;&lt;/div&gt;</code>
+                <code>&nbsp;&nbsp;&lt;div role="rowgroup"&gt;</code>
+                <code>&nbsp;&nbsp;&nbsp;&nbsp;&lt;div role="row"&gt;</code>
+                <code>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;div role="rowheader"&gt;Iris-setosa&lt;/div&gt;</code>
+                <code>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;div role="cell"&gt;longwordwithnospaces&lt;/div&gt;</code>
+                <code>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;div role="cell"&gt;3.7&lt;/div&gt;</code>
+                <code>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;div role="cell"&gt;1.5&lt;/div&gt;</code>
+                <code>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;div role="cell"&gt;0.2&lt;/div&gt;</code>
+                <code>&nbsp;&nbsp;&nbsp;&nbsp;&lt;/div&gt;</code>
+                <code>&nbsp;&nbsp;&nbsp;&nbsp;...</code>
+                <code>&nbsp;&nbsp;&lt;/div&gt;</code>
+                <code>&lt;/div&gt;</code>
+            </pre>
+            <pre class="code-small">
+                <code>&lt;style&gt;</code>
+                <code>&nbsp;&nbsp;#nested-grid-ex-1 {</code>
+                <code>&nbsp;&nbsp;&nbsp;&nbsp;width: 450px;</code>
+                <code>&nbsp;&nbsp;&nbsp;&nbsp;display: grid;</code>
+                <code>&nbsp;&nbsp;&nbsp;&nbsp;grid-template-columns: 1fr;</code>
+                <code>&nbsp;&nbsp;&nbsp;&nbsp;grid-gap: 5px;</code>
+                <code>&nbsp;&nbsp;&nbsp;&nbsp;font-size: 10pt;</code>
+                <code>&nbsp;&nbsp;&nbsp;&nbsp;line-height: 13pt;</code>
+                <code>&nbsp;&nbsp;}</code>
+                <code>&nbsp;&nbsp;#nested-grid-ex-1 div[role="row"] {</code>
+                <code>&nbsp;&nbsp;&nbsp;&nbsp;<mark>display: grid;</mark></code>
+                <code>&nbsp;&nbsp;&nbsp;&nbsp;<mark>grid-template-columns: repeat(5, 1fr);</mark></code>
+                <code>&nbsp;&nbsp;&nbsp;&nbsp;grid-gap: 5px;</code>
+                <code>&nbsp;&nbsp;}</code>
+                <code>&nbsp;&nbsp;...</code>
+                <code>&lt;/style&gt;</code>
+            </pre>
+        </div>
+    </section>
+
+    <section class="slide">
+        <h2>Subgrid Table</h2>
+        <div>
+            <div id="subgrid-table-caption" class="table-caption">Iris Measurements</div>
+            <div id="subgrid-table" role="table" aria-describedby="subgrid-table-caption">
+                <div role="rowgroup">
+                    <div role="row">
+                        <div role="columnheader">class</div>
+                        <div role="columnheader">sepal length</div>
+                        <div role="columnheader">sepal width</div>
+                        <div role="columnheader">petal length</div>
+                        <div role="columnheader">petal width</div>
+                    </div>
+                </div>
+                    
+                <div role="rowgroup">
+                    <div role="row">
+                        <div role="rowheader">Iris-setosa</div>
+                        <div role="cell">longwordwithnospaces</div>
+                        <div role="cell">3.7</div>
+                        <div role="cell">1.5</div>
+                        <div role="cell">0.2</div>
+                    </div>
+                    <div role="row">
+                        <div role="rowheader">Iris-setosa</div>
+                        <div role="cell">5.0</div>
+                        <div role="cell">3.3</div>
+                        <div role="cell">1.4</div>
+                        <div role="cell">0.2</div>
+                    </div>
+                    <div role="row">
+                        <div role="rowheader">Iris-versicolor</div>
+                        <div role="cell">7.0</div>
+                        <div role="cell">3.2</div>
+                        <div role="cell">4.7</div>
+                        <div role="cell">1.4</div>
+                    </div>
+                    <div role="row">
+                        <div role="rowheader">Iris-versicolor</div>
+                        <div role="cell">6.4</div>
+                        <div role="cell">3.2</div>
+                        <div role="cell">4.5</div>
+                        <div role="cell">1.5</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <style>
+            #subgrid-table {
+                width: 450px;
+                display: grid;
+                grid-template-columns: repeat(5, 1fr);
+                grid-gap: 5px;
+                font-size: 10pt;
+                line-height: 13pt;
+            }
+
+            #subgrid-table div[role="rowgroup"],
+            #subgrid-table div[role="row"] {
+                display: grid; 
+                grid-column: 1/-1;
+                grid-template-columns: subgrid;
+            }
+
+            #subgrid-table div[role="row"] div:nth-child(n+2) {
+                text-align: right;
+            }
+
+            #subgrid-table div[role="row"]:nth-child(even) {
+                background-color: #eee;
+            }
+        </style>
+    </section>
+
+    <section class="slide">
+        <div class="columns two">
+            <pre class="code-small">
+                <code>&lt;div id="subgrid-table" role="table"&gt;</code>
+                <code>&nbsp;&nbsp;&lt;div role="rowgroup"&gt;</code>
+                <code>&nbsp;&nbsp;&nbsp;&nbsp;&lt;div role="row"&gt;</code>
+                <code>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;div role="columnheader"&gt;class&lt;/div&gt;</code>
+                <code>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;div role="columnheader"&gt;sepal length&lt;/div&gt;</code>
+                <code>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;div role="columnheader"&gt;sepal width&lt;/div&gt;</code>
+                <code>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;div role="columnheader"&gt;petal length&lt;/div&gt;</code>
+                <code>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;div role="columnheader"&gt;petal width&lt;/div&gt;</code>
+                <code>&nbsp;&nbsp;&nbsp;&nbsp;&lt;/div&gt;</code>
+                <code>&nbsp;&nbsp;&lt;/div&gt;</code>
+                <code>&nbsp;&nbsp;&lt;div role="rowgroup"&gt;</code>
+                <code>&nbsp;&nbsp;&nbsp;&nbsp;&lt;div role="row"&gt;</code>
+                <code>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;div role="rowheader"&gt;Iris-setosa&lt;/div&gt;</code>
+                <code>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;div role="cell"&gt;longwordwithnospaces&lt;/div&gt;</code>
+                <code>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;div role="cell"&gt;3.7&lt;/div&gt;</code>
+                <code>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;div role="cell"&gt;1.5&lt;/div&gt;</code>
+                <code>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;div role="cell"&gt;0.2&lt;/div&gt;</code>
+                <code>&nbsp;&nbsp;&nbsp;&nbsp;&lt;/div&gt;</code>
+                <code>&nbsp;&nbsp;&lt;/div&gt;</code>
+                <code>&nbsp;&nbsp;...</code>
+                <code>&lt;/div&gt;</code>
+            </pre>
+            <pre class="code-small">
+                <code>&lt;style&gt;</code>
+                <code>&nbsp;&nbsp;#subgrid-table {</code>
+                <code>&nbsp;&nbsp;&nbsp;&nbsp;display: grid;</code>
+                <code>&nbsp;&nbsp;&nbsp;&nbsp;grid-template-columns:  repeat(5, 1fr);</code>
+                <code>&nbsp;&nbsp;&nbsp;&nbsp;grid-gap: 5px;</code>
+                <code>&nbsp;&nbsp;&nbsp;&nbsp;font-size: 10pt;</code>
+                <code>&nbsp;&nbsp;&nbsp;&nbsp;line-height: 13pt;</code>
+                <code>&nbsp;&nbsp;}</code>
+                <code>&nbsp;&nbsp;<mark>#subgrid-table div[role="rowgroup"],</mark></code>
+                <code>&nbsp;&nbsp;<mark>#subgrid-table div[role="row"] {</mark></code>
+                <code>&nbsp;&nbsp;&nbsp;&nbsp;<mark>display: grid;</mark></code>
+                <code>&nbsp;&nbsp;&nbsp;&nbsp;<mark>grid-column: 1/-1;</mark></code>
+                <code>&nbsp;&nbsp;&nbsp;&nbsp;<mark>grid-template-columns: subgrid;</mark></code>
+                <code>&nbsp;&nbsp;<mark>}</mark></code>
+                <code>&lt;/style&gt;</code>
+            </pre>
+        </div>
     </section>
 
     <section class="slide">
@@ -372,7 +631,7 @@
 
             .bird-1-card {
                 font-size: 8pt;
-                border: 1px solid gray;
+                border: 1px solid maroon;
                 border-radius: 5px;
                 line-height: 10pt;
                 overflow: hidden;
@@ -521,7 +780,7 @@
 
             .bird-2-card {
                 font-size: 8pt;
-                border: 1px solid gray;
+                border: 1px solid maroon;
                 border-radius: 5px;
                 line-height: 10pt;
                 overflow: hidden;
@@ -574,125 +833,6 @@
                 font-style: italic;
             }
         </style>
-    </section>
-
-    <section class="slide">
-        <h2>Subgrid Table</h2>
-        <div>
-            <div id="subgrid-table-caption" class="table-caption">Iris Measurements</div>
-            <div id="subgrid-table" role="table" aria-describedby="subgrid-table-caption">
-                <div role="rowgroup">
-                    <div role="row">
-                        <div role="columnheader">class</div>
-                        <div role="columnheader">sepal length</div>
-                        <div role="columnheader">sepal width</div>
-                        <div role="columnheader">petal length</div>
-                        <div role="columnheader">petal width</div>
-                    </div>
-                </div>
-                    
-                <div role="rowgroup">
-                    <div role="row">
-                        <div role="rowheader">Iris-setosa</div>
-                        <div role="cell">5.3</div>
-                        <div role="cell">3.7</div>
-                        <div role="cell">1.5</div>
-                        <div role="cell">0.2</div>
-                    </div>
-                    <div role="row">
-                        <div role="rowheader">Iris-setosa</div>
-                        <div role="cell">5.0</div>
-                        <div role="cell">3.3</div>
-                        <div role="cell">1.4</div>
-                        <div role="cell">0.2</div>
-                    </div>
-                    <div role="row">
-                        <div role="rowheader">Iris-versicolor</div>
-                        <div role="cell">7.0</div>
-                        <div role="cell">3.2</div>
-                        <div role="cell">4.7</div>
-                        <div role="cell">1.4</div>
-                    </div>
-                    <div role="row">
-                        <div role="rowheader">Iris-versicolor</div>
-                        <div role="cell">6.4</div>
-                        <div role="cell">3.2</div>
-                        <div role="cell">4.5</div>
-                        <div role="cell">1.5</div>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <style>
-            #subgrid-table {
-                width: 500px;
-                display: grid;
-                grid-template-columns: 1fr repeat(4, 12ch);
-                grid-gap: 5px;
-                font-size: 10pt;
-                line-height: 13pt;
-            }
-
-            #subgrid-table div[role="rowgroup"],
-            #subgrid-table div[role="row"] {
-                display: grid; 
-                grid-column: 1/-1;
-                grid-template-columns: subgrid;
-            }
-
-            #subgrid-table div[role="row"] div:nth-child(n+2) {
-                text-align: right;
-            }
-
-            #subgrid-table div[role="row"]:nth-child(even) {
-                background-color: #eee;
-            }
-        </style>
-    </section>
-
-    <section class="slide">
-        <div class="columns two">
-            <pre class="code-small">
-                <code>&lt;div id="subgrid-table" role="table"&gt;</code>
-                <code>&nbsp;&nbsp;&lt;div role="rowgroup"&gt;</code>
-                <code>&nbsp;&nbsp;&nbsp;&nbsp;&lt;div role="row"&gt;</code>
-                <code>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;div role="columnheader"&gt;class&lt;/div&gt;</code>
-                <code>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;div role="columnheader"&gt;sepal length&lt;/div&gt;</code>
-                <code>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;div role="columnheader"&gt;sepal width&lt;/div&gt;</code>
-                <code>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;div role="columnheader"&gt;petal length&lt;/div&gt;</code>
-                <code>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;div role="columnheader"&gt;petal width&lt;/div&gt;</code>
-                <code>&nbsp;&nbsp;&nbsp;&nbsp;&lt;/div&gt;</code>
-                <code>&nbsp;&nbsp;&lt;/div&gt;</code>
-                <code>&nbsp;&nbsp;&lt;div role="rowgroup"&gt;</code>
-                <code>&nbsp;&nbsp;&nbsp;&nbsp;&lt;div role="row"&gt;</code>
-                <code>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;div role="rowheader"&gt;Iris-setosa&lt;/div&gt;</code>
-                <code>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;div role="cell"&gt;5.3&lt;/div&gt;</code>
-                <code>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;div role="cell"&gt;3.7&lt;/div&gt;</code>
-                <code>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;div role="cell"&gt;1.5&lt;/div&gt;</code>
-                <code>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;div role="cell"&gt;0.2&lt;/div&gt;</code>
-                <code>&nbsp;&nbsp;&nbsp;&nbsp;&lt;/div&gt;</code>
-                <code>&nbsp;&nbsp;&lt;/div&gt;</code>
-                <code>&nbsp;&nbsp;...</code>
-                <code>&lt;/div&gt;</code>
-            </pre>
-            <pre class="code-small">
-                <code>&lt;style&gt;</code>
-                <code>&nbsp;&nbsp;#subgrid-table {</code>
-                <code>&nbsp;&nbsp;&nbsp;&nbsp;display: grid;</code>
-                <code>&nbsp;&nbsp;&nbsp;&nbsp;grid-template-columns: 1fr repeat(4, 8ch);</code>
-                <code>&nbsp;&nbsp;&nbsp;&nbsp;grid-gap: 5px;</code>
-                <code>&nbsp;&nbsp;&nbsp;&nbsp;font-size: 10pt;</code>
-                <code>&nbsp;&nbsp;&nbsp;&nbsp;line-height: 13pt;</code>
-                <code>&nbsp;&nbsp;}</code>
-                <code>&nbsp;&nbsp;<mark>#subgrid-table div[role="rowgroup"],</mark></code>
-                <code>&nbsp;&nbsp;<mark>#subgrid-table div[role="row"] {</mark></code>
-                <code>&nbsp;&nbsp;&nbsp;&nbsp;<mark>display: grid;</mark></code>
-                <code>&nbsp;&nbsp;&nbsp;&nbsp;<mark>grid-column: 1/-1;</mark></code>
-                <code>&nbsp;&nbsp;&nbsp;&nbsp;<mark>grid-template-columns: subgrid;</mark></code>
-                <code>&nbsp;&nbsp;<mark>}</mark></code>
-                <code>&lt;/style&gt;</code>
-            </pre>
-        </div>
     </section>
 
     <section class="slide">
